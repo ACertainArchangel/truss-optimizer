@@ -6,7 +6,7 @@
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-orange.svg)](https://pytorch.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-## ✨ What is This?
+## What is This?
 
 Truss Optimizer is a **framework for optimizing structural trusses** using gradient-based methods. Instead of trial-and-error or genetic algorithms, it uses PyTorch's automatic differentiation to compute exact gradients through your structural physics, enabling fast convergence to optimal designs.
 
@@ -285,7 +285,7 @@ pytest tests/ -v
 
 Traditional truss optimization uses:
 - **Trial and error** — Slow, misses optima
-- **Genetic algorithms** — Better but requires many evaluations
+- **Genetic algorithms** — A pain
 - **Grid search** — Exponential in parameters
 
 **Gradient-based optimization**:
@@ -293,6 +293,7 @@ Traditional truss optimization uses:
 - Converges in hundreds (not millions) of iterations
 - Handles continuous parameters naturally
 - The `softmin` trick gives gradients through `min()` operations
+- Is cooler
 
 The key insight: structural physics (geometry → forces → stresses → failure) is just math, and math is differentiable!
 
