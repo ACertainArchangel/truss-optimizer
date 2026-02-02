@@ -6,7 +6,12 @@
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-orange.svg)](https://pytorch.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-## What is This?
+
+## Why did I make this?
+
+For a statics class at the University of Nevada, Reno, we were tasked with designing a model bridge out of balsa wood that had the highest critical load to weight ratio. I was a little frustrated, because we were not given any of the tools or theory to come to an objective conclusion of what we thought was best, so I designed this framework, and built two bridges from the results. The project was very succesful, and the bridges broke the records set across all UNR participants for two recent semesters. The original project was a messy repo with about 20 scattered ad hoc utility files, so I had copilot quickly copy the most important files here, and add user friendly documentation.
+
+## What is This
 
 Truss Optimizer is a **framework for optimizing structural trusses** using gradient-based methods. Instead of trial-and-error or genetic algorithms, it uses PyTorch's automatic differentiation to compute exact gradients through your structural physics, enabling fast convergence to optimal designs.
 
