@@ -146,17 +146,141 @@ class OptimizationResult:
             "Install with: pip install ezdxf"
         )
     
-    def visualize(self, show: bool = True, save_path: Optional[str] = None) -> Any:
+    def visualize(self, show: bool = True, save_path: Optional[str] = None, backend: str = 'turtle') -> Any:
         """
         Visualize the optimized bridge geometry.
-        
+
         Args:
             show: Whether to display the plot
             save_path: Optional path to save the figure
-            
+            backend: Rendering backend — 'turtle' (default) or 'matplotlib'
+
         Returns:
-            matplotlib Figure object (if matplotlib available)
+            None for turtle backend; matplotlib Figure for matplotlib backend
         """
+        if backend == 'matplotlib':
+            return self._visualize_matplotlib(show=show, save_path=save_path)
+        return self._visualize_turtle(show=show, save_path=save_path)
+
+    def _visualize_turtle(self, show: bool = True, save_path: Optional[str] = None) -> None:
+        """Draw the truss geometry using Python's built-in turtle module."""
+        import turtle
+        import math
+
+        p = self.params
+        angle = p.get('angle', 0.52)
+        height = p.get('height', 0.15)
+        span = p.get('span', p.get('length', 0.47))
+
+        x_incline = height / math.tan(angle)
+        phi = math.atan((span / 2 - x_incline) / height)
+
+        # Reset turtle state for clean re-runs
+        turtle.TurtleScreen._RUNNING = True
+        turtle._Screen._root = None
+        turtle._Screen._canvas = None
+
+        try:
+            screen = turtle.getscreen()
+            screen.clearscreen()
+        except turtle.TurtleGraphicsError:
+            screen = turtle.Screen()
+
+        screen.title(
+            f"Optimised Pratt Truss  |  Load/Weight = {self.load_to_weight:.1f}  |  "
+            f"Critical Load = {self.critical_load:.1f} N"
+        )
+        screen.setup(width=800, height=600)
+
+        margin = span * 0.15
+        screen.setworldcoordinates(-margin, -margin * 2, span + margin, height * 2.5)
+
+        t = turtle.RawTurtle(screen)
+        t.speed(0)
+        t.hideturtle()
+        t.pensize(2)
+        t.penup()
+        t.goto(0, 0)
+        t.pendown()
+
+        # Bottom chord
+        t.color("blue")
+        t.forward(span)
+
+        # Right incline
+        t.color("red")
+        t.left(180 - math.degrees(angle))
+        t.forward(height / math.sin(angle))
+
+        # Top chord
+        t.color("blue")
+        t.setheading(180)
+        t.forward(span - 2 * x_incline)
+
+        # Left incline
+        t.color("red")
+        t.left(math.degrees(angle))
+        t.forward(height / math.sin(angle))
+
+        # Left vertical
+        t.penup()
+        t.backward(height / math.sin(angle))
+        t.setheading(270)
+        t.color("green")
+        t.pendown()
+        t.forward(height)
+        t.penup()
+        t.backward(height)
+
+        # Left diagonal
+        t.color("orange")
+        t.pendown()
+        t.left(math.degrees(phi))
+        t.forward(height / math.cos(phi))
+
+        # Centre vertical
+        t.setheading(90)
+        t.color("green")
+        t.forward(height)
+        t.penup()
+        t.backward(height)
+
+        # Right diagonal
+        t.color("orange")
+        t.pendown()
+        t.setheading(0)
+        t.left(90 - math.degrees(phi))
+        t.forward(height / math.cos(phi))
+
+        # Right vertical
+        t.color("green")
+        t.setheading(270)
+        t.forward(height)
+
+        if save_path:
+            canvas = screen.getcanvas()
+            ps_path = str(save_path).rsplit('.', 1)[0] + '.ps'
+            canvas.postscript(file=ps_path)
+            try:
+                from PIL import Image
+                img = Image.open(ps_path)
+                img.save(save_path)
+            except ImportError:
+                pass  # PostScript file saved at least
+
+        if show:
+            screen.mainloop()
+        else:
+            try:
+                turtle.bye()
+            except Exception:
+                pass
+            turtle.TurtleScreen._RUNNING = True
+            turtle._Screen._root = None
+            turtle._Screen._canvas = None
+
+    def _visualize_matplotlib(self, show: bool = True, save_path: Optional[str] = None) -> Any:
+        """Draw the truss geometry using Matplotlib."""
         try:
             import matplotlib.pyplot as plt
             import matplotlib.patches as patches
@@ -281,36 +405,18 @@ class OptimizationResult:
         
         if not self.history.get('loss'):
             raise ValueError("No optimization history available")
-        
-        fig, axes = plt.subplots(2, 1, figsize=(10, 8))
-        
-        # Loss history
-        ax1 = axes[0]
-        ax1.plot(self.history['loss'], 'b-', linewidth=1)
-        ax1.axvline(self.best_iteration, color='r', linestyle='--', 
-                    label=f'Best (iter {self.best_iteration})')
-        ax1.set_xlabel('Iteration')
-        ax1.set_ylabel('Loss')
-        ax1.set_title('Optimization Convergence')
-        ax1.legend()
-        ax1.grid(True, alpha=0.3)
-        
-        # Load history (if available)
-        ax2 = axes[1]
-        if 'critical_load' in self.history:
-            ax2.plot(self.history['critical_load'], 'g-', linewidth=1)
-            ax2.set_ylabel('Critical Load (N)')
-        else:
-            # Infer from loss if using load-to-weight objective
-            loads = [-l for l in self.history['loss']]  # Approximate
-            ax2.plot(loads, 'g-', linewidth=1)
-            ax2.set_ylabel('Load/Weight Ratio')
-        
-        ax2.axvline(self.best_iteration, color='r', linestyle='--')
-        ax2.set_xlabel('Iteration')
-        ax2.set_title('Objective Progress')
-        ax2.grid(True, alpha=0.3)
-        
+
+        fig, ax = plt.subplots(1, 1, figsize=(10, 4))
+
+        ax.plot(self.history['loss'], 'b-', linewidth=1)
+        ax.axvline(self.best_iteration, color='r', linestyle='--',
+                   label=f'Best (iter {self.best_iteration})')
+        ax.set_xlabel('Iteration')
+        ax.set_ylabel('Loss')
+        ax.set_title('Optimization Convergence')
+        ax.legend()
+        ax.grid(True, alpha=0.3)
+
         plt.tight_layout()
         
         if save_path:

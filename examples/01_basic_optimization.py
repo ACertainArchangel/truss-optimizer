@@ -85,10 +85,14 @@ def main():
     # Step 6: Save the result
     result.export("basic_bridge.json")
     print(f"\n  Saved to: basic_bridge.json")
-    
-    print("\n" + "=" * 60)
-    print("  Done!")
-    print("=" * 60)
+
+    # Step 7: Visualise
+    if True:  # Set to False if running in a non-GUI environment  
+        print("\nGenerating visualisations...")
+        result.visualize(save_path="basic_bridge.png")
+        result.plot_convergence(save_path="basic_bridge_convergence.png")
+        print("  Saved: basic_bridge.png")
+        print("  Saved: basic_bridge_convergence.png")
 
 
 if __name__ == "__main__":

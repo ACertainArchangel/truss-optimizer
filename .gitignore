@@ -61,3 +61,9 @@ htmlcov/
 
 # OS files
 Thumbs.db
+
+# MIT Slideroom portfolio submission
+mit_slideroom*
+
+#Basic bridge
+basic_bridge*
