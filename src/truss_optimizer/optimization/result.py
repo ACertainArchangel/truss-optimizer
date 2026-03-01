@@ -202,58 +202,31 @@ class OptimizationResult:
         t.penup()
         t.goto(0, 0)
         t.pendown()
-
-        # Bottom chord
-        t.color("blue")
         t.forward(span)
-
-        # Right incline
-        t.color("red")
         t.left(180 - math.degrees(angle))
         t.forward(height / math.sin(angle))
-
-        # Top chord
-        t.color("blue")
         t.setheading(180)
         t.forward(span - 2 * x_incline)
-
-        # Left incline
-        t.color("red")
         t.left(math.degrees(angle))
         t.forward(height / math.sin(angle))
-
-        # Left vertical
         t.penup()
         t.backward(height / math.sin(angle))
         t.setheading(270)
-        t.color("green")
         t.pendown()
         t.forward(height)
         t.penup()
         t.backward(height)
-
-        # Left diagonal
-        t.color("orange")
         t.pendown()
         t.left(math.degrees(phi))
         t.forward(height / math.cos(phi))
-
-        # Centre vertical
         t.setheading(90)
-        t.color("green")
         t.forward(height)
         t.penup()
         t.backward(height)
-
-        # Right diagonal
-        t.color("orange")
         t.pendown()
         t.setheading(0)
         t.left(90 - math.degrees(phi))
         t.forward(height / math.cos(phi))
-
-        # Right vertical
-        t.color("green")
         t.setheading(270)
         t.forward(height)
 
