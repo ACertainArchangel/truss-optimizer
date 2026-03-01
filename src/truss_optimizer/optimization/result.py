@@ -146,23 +146,8 @@ class OptimizationResult:
             "Install with: pip install ezdxf"
         )
     
-    def visualize(self, show: bool = True, save_path: Optional[str] = None, backend: str = 'turtle') -> Any:
-        """
-        Visualize the optimized bridge geometry.
 
-        Args:
-            show: Whether to display the plot
-            save_path: Optional path to save the figure
-            backend: Rendering backend — 'turtle' (default) or 'matplotlib'
-
-        Returns:
-            None for turtle backend; matplotlib Figure for matplotlib backend
-        """
-        if backend == 'matplotlib':
-            return self._visualize_matplotlib(show=show, save_path=save_path)
-        return self._visualize_turtle(show=show, save_path=save_path)
-
-    def _visualize_turtle(self, show: bool = True, save_path: Optional[str] = None) -> None:
+    def visualize(self, show: bool = True, save_path: Optional[str] = None) -> None:
         """Draw the truss geometry using Python's built-in turtle module."""
         import turtle
         import math
@@ -251,111 +236,6 @@ class OptimizationResult:
             turtle.TurtleScreen._RUNNING = True
             turtle._Screen._root = None
             turtle._Screen._canvas = None
-
-    def _visualize_matplotlib(self, show: bool = True, save_path: Optional[str] = None) -> Any:
-        """Draw the truss geometry using Matplotlib."""
-        try:
-            import matplotlib.pyplot as plt
-            import matplotlib.patches as patches
-            from matplotlib.collections import LineCollection
-        except ImportError:
-            raise ImportError(
-                "Visualization requires matplotlib. "
-                "Install with: pip install matplotlib"
-            )
-        
-        fig, ax = plt.subplots(1, 1, figsize=(12, 6))
-        
-        # Extract parameters
-        p = self.params
-        angle = p.get('angle', 0.52)
-        height = p.get('height', 0.15)
-        span = p.get('span', p.get('length', 0.47))
-        
-        import math
-        
-        # Calculate key points
-        x_incline = height / math.tan(angle)
-        x_top_start = x_incline
-        x_top_end = span - x_incline
-        
-        # Define truss geometry
-        lines = [
-            # Bottom chord
-            [(0, 0), (span, 0)],
-            # Left incline
-            [(0, 0), (x_incline, height)],
-            # Right incline
-            [(span, 0), (span - x_incline, height)],
-            # Top chord
-            [(x_incline, height), (span - x_incline, height)],
-            # Left diagonal
-            [(x_incline, height), (span/2, 0)],
-            # Right diagonal
-            [(span - x_incline, height), (span/2, 0)],
-            # Left vertical
-            [(x_incline, 0), (x_incline, height)],
-            # Right vertical
-            [(span - x_incline, 0), (span - x_incline, height)],
-            # Center vertical
-            [(span/2, 0), (span/2, height)],
-        ]
-        
-        # Draw members - colors correspond to member order above
-        # 1 bottom chord (blue), 2 inclines (red), 1 top chord (blue), 2 diagonals (orange), 3 verticals (green)
-        colors = ['blue', 'red', 'red', 'blue', 'orange', 'orange', 'green', 'green', 'green']
-        labels = ['chord', 'incline', 'diagonal', 'vertical']
-        
-        for line, color in zip(lines, colors):
-            xs = [line[0][0], line[1][0]]
-            ys = [line[0][1], line[1][1]]
-            ax.plot(xs, ys, color=color, linewidth=2)
-        
-        # Add nodes
-        nodes = [
-            (0, 0), (span, 0), (span/2, 0),
-            (x_incline, 0), (span - x_incline, 0),
-            (x_incline, height), (span - x_incline, height), (span/2, height)
-        ]
-        for x, y in nodes:
-            ax.plot(x, y, 'ko', markersize=6)
-        
-        # Annotations
-        ax.set_title(
-            f"Optimized Pratt Truss\n"
-            f"Load/Weight = {self.load_to_weight:.1f}, "
-            f"Critical Load = {self.critical_load:.1f} N",
-            fontsize=12
-        )
-        ax.set_xlabel("Length (m)")
-        ax.set_ylabel("Height (m)")
-        ax.set_aspect('equal')
-        ax.grid(True, alpha=0.3)
-        
-        # Add dimensions
-        ax.annotate(
-            f"Span: {span*1000:.0f} mm",
-            xy=(span/2, -height*0.2),
-            ha='center',
-            fontsize=10
-        )
-        ax.annotate(
-            f"Height: {height*1000:.0f} mm",
-            xy=(-span*0.05, height/2),
-            ha='right',
-            fontsize=10,
-            rotation=90
-        )
-        
-        plt.tight_layout()
-        
-        if save_path:
-            plt.savefig(save_path, dpi=150, bbox_inches='tight')
-        
-        if show:
-            plt.show()
-        
-        return fig
     
     def plot_convergence(self, show: bool = True, save_path: Optional[str] = None) -> Any:
         """
