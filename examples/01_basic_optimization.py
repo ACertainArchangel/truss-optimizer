@@ -86,13 +86,9 @@ def main():
     result.export("basic_bridge.json")
     print(f"\n  Saved to: basic_bridge.json")
 
-    # Step 7: Visualise
-    if True:  # Set to False if running in a non-GUI environment  
-        print("\nGenerating visualisations...")
-        result.visualize(save_path="basic_bridge.png")
-        result.plot_convergence(save_path="basic_bridge_convergence.png")
-        print("  Saved: basic_bridge.png")
-        print("  Saved: basic_bridge_convergence.png")
+    # Step 7: Convergence plot if you wanna
+    if True:
+        result.plot_convergence()
 
 
 if __name__ == "__main__":
