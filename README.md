@@ -12,6 +12,8 @@ The reason there is a version of this repository where I have v1, v2, v3, and v4
 
 **GitHub:** [https://github.com/ACertainArchangel/truss-optimizer](https://github.com/ACertainArchangel/truss-optimizer)
 
+**Long Version Demo Video:** [https://drive.google.com/file/d/1pPANrXMhu28hToQs1l68Gp93RaLJm1Y-/view?usp=sharing](https://drive.google.com/file/d/1pPANrXMhu28hToQs1l68Gp93RaLJm1Y-/view?usp=sharing)
+
 ---
 
 **Collaborators:** (The other two people on my team in the statics class helped with the assembly of one of the bridges, but I did the second bridge and the software independently.)
