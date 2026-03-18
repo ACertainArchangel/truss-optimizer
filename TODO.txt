@@ -1,5 +1,2 @@
-BEFORE EMAIL:
-Video
-
 Consolodate clamping logic into one bridge method that operates soley off of constraints.
 Consider M_top=0
