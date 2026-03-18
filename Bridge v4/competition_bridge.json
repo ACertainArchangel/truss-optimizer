@@ -1,0 +1,19 @@
+{
+  "parameters": {
+    "angle": 0.57211893,
+    "height": 0.131064,
+    "span": 0.4699,
+    "top_chord_thickness": 0.0127,
+    "top_chord_depth": 0.0127,
+    "incline_thickness": 0.0127,
+    "incline_depth": 0.0127,
+    "diagonal_thickness": 0.004047236,
+    "diagonal_depth": 0.003175,
+    "bottom_chord_thickness": 0.01228979,
+    "bottom_chord_depth": 0.0079375,
+    "mid_vertical_thickness": 0.0127,
+    "mid_vertical_depth": 0.0127,
+    "side_vertical_thickness": 0.003801364,
+    "side_vertical_depth": 0.0047625
+  }
+}

@@ -54,10 +54,7 @@ htmlcov/
 # mypy
 .mypy_cache/
 
-# Output files
-*.log
-*.json
-!examples/*.json
+#We used to remove json files here but not anymore
 
 # OS files
 Thumbs.db
@@ -67,3 +64,78 @@ mit_slideroom*
 
 #Basic bridge
 basic_bridge*
+
+#Debugging
+debug_*
+compare_v3_v4.py
+trace_*
+
+#Old storage basement
+*basement/
+
+# LaTeX build artifacts
+*.aux
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+*.dvi
+*.out
+*.log
+*.ps
+
+# Bridge v2 latex directory (keep cover_sheet.tex)
+Bridge v2/latex/*
+#!Bridge v2/latex/cover_sheet.tex
+!Bridge v2/latex/parts_list.tex
+#!Bridge v2/latex/cover_sheet.pdf
+!Bridge v2/latex/parts_list.pdf
+!Bridge v2/latex/BridgeNotPrattDoneThisOne.pdf
+
+# Cover sheet compiled PDFs
+Bridge v2/cover_sheet*.pdf
+
+#Overrides
+*<>
+*<>.py
+*<>.md
+*<>.txt
+*<>.*
+_*
+
+# Old AI-generated documentation
+**/*COMPLETE.md
+Bridge v2/README.md
+Bridge v2/tests/README.md
+
+# Personal notes and todos
+Bridge v1/todo.txt
+Bridge v2/todo.txt
+
+# Empty archive directories
+**/old_materials_archive/
+
+# Trial data (generated optimizer output)
+**/trials/
+**/trials<OVERRIDE>/
+
+# Generated bridge/plan data
+**/final_plans*.json
+Bridge v2/best_bridge.json
+Bridge v2/optimized_manual_bridge.json
+Bridge v2/competition_bridge?.json
+Bridge v3/best_trial_bridge.json
+Bridge v3/failure_analysis.txt
+
+# School competition deliverables
+Bridge v2/Bridge Revision 6 Files/*
+#!Bridge v2/Bridge Revision 6 Files/Packet.pdf
+!Bridge v2/Bridge Revision 6 Files/instructions.md
+
+# Generated diagram build artifacts
+Bridge v3/photos/
+
+# Legacy deprecated code
+Bridge v2/legacy/
+
+# Latex for considerations doc
+consideration.txt

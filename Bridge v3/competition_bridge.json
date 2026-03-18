@@ -1,0 +1,69 @@
+{
+  "parameters": {
+    "angle": 0.600030751328149,
+    "height": 0.15440630306201475,
+    "span": 0.4699,
+    "incline_thickness": 0.009524999999999999,
+    "incline_depth": 0.0127,
+    "diagonal_thickness": 0.003175,
+    "diagonal_depth": 0.004762499999999999,
+    "mid_vert_thickness": 0.00635,
+    "mid_vert_depth": 0.009524999999999999,
+    "side_vert_thickness": 0.0037101265377355334,
+    "side_vert_depth": 0.004762499999999999,
+    "top_thickness": 0.009524999999999999,
+    "top_depth": 0.0127,
+    "bottom_thickness": 0.006744900311491701,
+    "bottom_depth": 0.00635,
+    "E": 2000000000.0,
+    "sigma_compression": 2500000.0,
+    "sigma_tension": 8000000.0
+  },
+  "initial_parameters": {
+    "angle": 0.6108652381980153,
+    "height": 0.15239999999999998,
+    "span": 0.4699,
+    "incline_thickness": 0.01,
+    "incline_depth": 0.02,
+    "diagonal_thickness": 0.01,
+    "diagonal_depth": 0.02,
+    "mid_vert_thickness": 0.01,
+    "mid_vert_depth": 0.02,
+    "side_vert_thickness": 0.01,
+    "side_vert_depth": 0.02,
+    "top_thickness": 0.01,
+    "top_depth": 0.02,
+    "bottom_thickness": 0.01,
+    "bottom_depth": 0.02,
+    "E": 2000000000.0,
+    "sigma_compression": 2500000.0,
+    "sigma_tension": 8000000.0
+  },
+  "results": {
+    "critical_load_N": 272.66306156308303,
+    "weight_N": 0.7330820543941278,
+    "load_to_weight_ratio": 371.94071240555957,
+    "governing_failure_mode": "incline_buckle"
+  },
+  "failure_modes": {
+    "incline_buckle": 272.66306156308303,
+    "incline_buckle_out_of_plane": 484.73433166770315,
+    "incline_combined_stress": 341.53229271694136,
+    "diagonal_rupture": 724.5005394932375,
+    "top_chord_buckle": 47759.708902692524,
+    "top_chord_buckle_out_of_plane": 99049.02186026028,
+    "top_chord_combined_stress": 274.9959333613528,
+    "bottom_chord_rupture": 274.6273436850098,
+    "mid_vert_buckle": 799.7524485292593,
+    "mid_vert_buckle_out_of_plane": 1799.443009190833,
+    "mid_vert_combined_stress": 718.6702895394819,
+    "side_vert_buckle": 273.01441094120224,
+    "side_vert_buckle_out_of_plane": 449.86075229770825,
+    "side_vert_combined_stress": 718.6702895394819
+  },
+  "optimization": {
+    "iterations": 5000,
+    "best_iteration": 2172,
+    "final_loss": -373.6557120934549
+  }
+}
