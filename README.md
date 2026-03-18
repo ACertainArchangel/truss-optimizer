@@ -3,7 +3,7 @@
 
 Please read `REPORT.pdf` for more detail. This readme is a verbatim copy of the report with equations removed.
 
-The reason I have v1, v2, v3, and v4, is that this was originally not a version controller project, and I wanted to represent what the development process looked like though no git history was available. Making clones and spinoffs is a pain and I will always version control every project I start from now on even if it's not going on github.
+The reason there is a version of this repository where I have v1, v2, v3, and v4 next to each other in their own directories, is that this was originally not a version controlled project, and I wanted to represent what the development process looked like though no git history was available. Making clones and spinoffs is a pain and I will always version control every project I start from now on even if it's not going on github. In a soon upcoming update I will remove v1, v2, and v3, and will unpack v4. This note will be left in the readme for future reference.
 
 ## Introduction
 **Gabriel Jordaan**
